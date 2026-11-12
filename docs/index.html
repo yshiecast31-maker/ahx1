@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ahx1 — zero-password AEAD</title>
+  <style>
+    :root {
+      --bg: #101412;
+      --fg: #e7ece8;
+      --muted: #7f9a86;
+      --paper: #f4f1ea;
+      --accent: #7f9a86;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+    main {
+      max-width: 42rem;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+    h1 {
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      font-size: 1.75rem;
+      margin: 0 0 0.25rem;
+    }
+    .sub {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 2.5rem;
+    }
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin: 2.5rem 0 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    p, li { font-size: 1.02rem; }
+    code, pre {
+      font-family: "SF Mono", "Menlo", "Consolas", monospace;
+      font-size: 0.88rem;
+    }
+    pre {
+      background: #0c0e0d;
+      border: 1px solid #1c221f;
+      padding: 1rem 1.1rem;
+      overflow-x: auto;
+      border-radius: 4px;
+      color: var(--paper);
+    }
+    .token {
+      word-break: break-all;
+      background: #0c0e0d;
+      border: 1px solid #1c221f;
+      padding: 0.9rem 1rem;
+      border-radius: 4px;
+      font-family: "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.82rem;
+      color: var(--paper);
+    }
+    a { color: var(--accent); }
+    ul { padding-left: 1.2rem; }
+    .warn {
+      border-left: 3px solid var(--accent);
+      padding: 0.6rem 0 0.6rem 1rem;
+      margin: 1.5rem 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    footer {
+      margin-top: 4rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>ahx1</h1>
+    <p class="sub">Zero-password AEAD transport · root entropy only</p>
+
+    <p>
+      Authenticated encryption with no user passphrase.
+      The only secret is a 256-bit root intended to live in a TPM,
+      Secure Enclave, or equivalent hardware keystore.
+    </p>
+
+    <h2>Properties</h2>
+    <ul>
+      <li>ChaCha20-Poly1305 AEAD</li>
+      <li>Dual independent HKDF expansions</li>
+      <li>SHA3-HMAC header integrity (checked first)</li>
+      <li>Pre-mix under a third derived key</li>
+      <li>Opaque marker <code>ahx1:</code></li>
+      <li>Generic failure messages only</li>
+    </ul>
+
+    <h2>Example</h2>
+    <p>Plaintext</p>
+    <pre>Oh well 1+1=? Oh well done</pre>
+    <p>Sealed (demo root)</p>
+    <div class="token">ahx1:8m9du3JWu2vuupCCQDPiVsSMRZgpAQkw8exu54uUxnLINhkYFg_Bz69DlPDn5cSqUsMQN9JCL3I55YkDhtb5ify2GKXaYovgZQII2DXe</div>
+
+    <div class="warn">
+      The demo root is public and exists only for illustration.
+      Never ship a hard-coded root in production.
+    </div>
+
+    <h2>Source</h2>
+    <p>
+      <a href="https://github.com/yshiecast31-maker/ahx1">github.com/yshiecast31-maker/ahx1</a>
+    </p>
+
+    <footer>
+      MIT · ahx1
+    </footer>
+  </main>
+</body>
+</html>
